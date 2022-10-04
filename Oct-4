@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool reqSum(TreeNode* root,int sum)
+    {   
+		// base case
+		// we reached the null node and the sum is nonzero
+        if(root==nullptr)
+            return false;
+        sum-=root->val;
+        if(root->left==nullptr&&root->right==nullptr)
+        {
+            if(sum==0)
+                return true;
+            return false;
+        }
+        
+        return {
+            reqSum(root->left,sum)||reqSum(root->right,sum)
+        };  
+    }
+    
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(targetSum==0&&root==nullptr)
+            return false;
+        return reqSum(root,targetSum);
+    }
+};
