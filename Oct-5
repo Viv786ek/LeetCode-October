@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void solve(TreeNode* root, int val, int depth, int d)
+    {
+        if(root == NULL) return ;
+        
+        if(depth-1 == d)
+        {
+            TreeNode* tempLeft = root->left;
+            TreeNode* tempRight = root->right;
+            
+            root->left =  new TreeNode(val);
+            root->right= new  TreeNode(val);
+            
+            root->left->left = tempLeft;
+            root->right->right = tempRight;
+            
+            return ;
+        }
+        
+        solve(root->left, val , depth, d+1);
+        solve(root->right, val , depth, d+1);
+    }
+    
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if(depth == 1)
+        {
+            TreeNode* newRoot = new TreeNode(val);
+            newRoot->left= root;
+            return newRoot;
+        }
+        
+        solve(root,val,depth,1);
+        return root;
+    }
+};
